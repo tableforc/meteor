@@ -8,6 +8,20 @@ if (Meteor.isClient) {
       return Resolutions.find();
     }
   });
+
+  Template.body.events({
+      'submit .new-resolution' :function(event){
+          var title = event.target.title.value;
+
+          Resolutions.insert({
+            title/*of Resolutions*/: title, /*var title*/
+            createdAt: new Date()
+          });
+
+          event.target.title.value =""; /*clear form*/
+          return false;/*prevent refresh due to submit button*/
+      }
+  });
 }
 
 if (Meteor.isServer) {

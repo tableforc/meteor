@@ -1,15 +1,27 @@
 <head>
-  <title>resolutions</title>
+	<title>resolutions</title>
 </head>
 
 <body>
-	<ul>
-		{{#each resolutions}} <!--iterate items in objects-->
+	<div class ="container">
+		<header>
+			<h1>Monthly Resolutions</h1>
+			<form class ="new-resolution"><!-- form to add new resolutions -->
+				<input type ="text" name="title" placeholder ="New resolution">
+				<input type ="submit" value ="Submit">
+			</form>
+		</header>
+
+		<ul>
+			{{#each resolutions}} <!--iterate items in objects-->
 			{{>resolution}} <!--reference template-->
-		{{/each}}
-	</ul>
+			{{/each}}
+		</ul>
+
+	</div>
+
 </body>
 
 <template name="resolution">
-  <li>{{title}}</li><!-- reference resolutions.js template helper title element -->
+	<li>{{title}}</li><!-- reference resolutions.js template helper title element -->
 </template>
