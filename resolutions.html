@@ -23,5 +23,9 @@
 </body>
 
 <template name="resolution">
-	<li>{{title}}</li><!-- reference resolutions.js template helper title element -->
+	<li class ="{{#if checked}}checked{{/if}}"><!-- apply class if checked value true -->
+		<input type="checkbox" checked="{{checked}}" class="toggle-checked"><!-- class is for template to find it -->
+		<span class ="text">{{title}}</span>
+		 <button class="delete">Remove</button>
+	</li><!-- reference resolutions.js template helper title element -->
 </template>
