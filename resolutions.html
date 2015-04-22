@@ -1,0 +1,15 @@
+<head>
+  <title>resolutions</title>
+</head>
+
+<body>
+	<ul>
+		{{#each resolutions}} <!--iterate items in objects-->
+			{{>resolution}} <!--reference template-->
+		{{/each}}
+	</ul>
+</body>
+
+<template name="resolution">
+  <li>{{title}}</li><!-- reference resolutions.js template helper title element -->
+</template>
