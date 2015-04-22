@@ -1,6 +1,6 @@
 Resolutions = new Mongo.Collection('resolutions'); /*new collection*/
-
-
+// run meteor then open another cmd and meteor mongo
+// db.resolutions.insert({ title: "Hello Resolutions", createdAt:new Date() });
 
 if (Meteor.isClient) {
   Template.body.helpers({
