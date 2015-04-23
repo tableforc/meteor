@@ -5,7 +5,16 @@ Resolutions = new Mongo.Collection('resolutions'); /*new collection*/
 if (Meteor.isClient) {
   Template.body.helpers({
     resolutions: function() {
-      return Resolutions.find();
+      
+      if (Session.get('hideFinished')) {/*retrieve session var value*/
+        return Resolutions.find({checked:{$ne:true}});/* mongodb method for not equal, $ne : only look for objects where checked is true*/
+      } else {
+        return Resolutions.find();
+      }
+    },
+    
+    hideFinished:function(){/*it's unintuitive but, must define helper 'hideFinished' to use the helper*/
+      return Session.get('hideFinished');
     }
   });
 
@@ -20,12 +29,16 @@ if (Meteor.isClient) {
 
           event.target.title.value =""; /*clear input field in form*/
           return false;/*prevent refresh due to submit button*/
+       },
+
+       'change .hide-finished': function(event) {
+        Session.set('hideFinished'/*name of session var*/, event.target.checked/* set value of sessions var to t/f if checked*/);/*set session variable*/
        }
   });
 
   Template.resolution.events({ /*inside the resolution not body*/
     'click .toggle-checked':function(){
-        Resolutions.update(this._id, {$set: {checked: !this.checked}})
+        Resolutions.update(this._id, /*current item*/{$set: {checked: !this.checked}})/*inverse the checked value: false=true*/
     }, /*need comma to separate 2 properties*/
     'click .delete':function(){ /*listen for click event class delete*/
         Resolutions.remove(this._id); /*in collection named Resolutions, remove the current key's id*/

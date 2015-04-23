@@ -6,6 +6,12 @@
 	<div class ="container">
 		<header>
 			<h1>Monthly Resolutions</h1>
+
+			<label class="hide-finished">
+				<input type="checkbox" checked="{{hideFinished}}"> <!--for session var-->
+				Hide Finished Resolutions
+			</label>
+
 			<form class ="new-resolution"><!-- form to add new resolutions -->
 				<input type ="text" name="title" placeholder ="New resolution">
 				<input type ="submit" value ="Submit">
@@ -14,7 +20,7 @@
 
 		<ul>
 			{{#each resolutions}} <!--iterate items in objects-->
-			{{>resolution}} <!--reference template-->
+				{{>resolution}} <!--reference template-->
 			{{/each}}
 		</ul>
 
