@@ -11,11 +11,12 @@
 				<input type="checkbox" checked="{{hideFinished}}"> <!--for session var-->
 				Hide Finished Resolutions
 			</label>
-
+			{{#if currentUser}}
 			<form class ="new-resolution"><!-- form to add new resolutions -->
 				<input type ="text" name="title" placeholder ="New resolution">
 				<input type ="submit" value ="Submit">
 			</form>
+			{{/if}}
 		</header>
 
 		<ul>
@@ -23,7 +24,7 @@
 				{{>resolution}} <!--reference template-->
 			{{/each}}
 		</ul>
-
+		{{> loginButtons}}
 	</div>
 
 </body>
