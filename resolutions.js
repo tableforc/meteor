@@ -22,10 +22,7 @@ if (Meteor.isClient) {
       'submit .new-resolution' :function(event){ /*key for this object is an event string: submit, look for .new-resolution, triggers event function below*/
           var title = event.target.title.value;/*target event, get title (name of field), and value submitted*/
 
-          Resolutions.insert({/*save new key to db*/
-            title/*of Resolutions*/: title, /*var title*/
-            createdAt: new Date()
-          });
+          Meteor.call("addResolution", title); 
 
           event.target.title.value =""; /*clear input field in form*/
           return false;/*prevent refresh due to submit button*/
@@ -38,15 +35,15 @@ if (Meteor.isClient) {
 
   Template.resolution.events({ /*inside the resolution not body*/
     'click .toggle-checked':function(){
-        Resolutions.update(this._id, /*current item*/{$set: {checked: !this.checked}})/*inverse the checked value: false=true*/
+        Meteor.call("updateResolution",this._id, !this.checked);/*inverse the checked value: false=true*/
     }, /*need comma to separate 2 properties*/
     'click .delete':function(){ /*listen for click event class delete*/
-        Resolutions.remove(this._id); /*in collection named Resolutions, remove the current key's id*/
+        Meteor.call("deleteResolution",this._id); /*in collection named Resolutions, remove the current key's id*/
     }
   });
 
   Accounts.ui.config({
-    passwordSignupFields:"USERNAME_ONLY"
+    passwordSignupFields:"USERNAME_ONLY" /*instead of email default*/
   });
 }
 
@@ -55,3 +52,19 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+
+Meteor.methods({
+  addResolution: function(title) {
+     Resolutions.insert({/*save new key to db*/
+      title/*of Resolutions*/: title, /*var title*/
+      createdAt: new Date()
+    });
+  },
+  updateResolution: function(id,checked){
+    Resolutions.update(id, /*current item*/{$set: {checked: checked}}); /*invesed value is passed in*/
+  },
+  deleteResolution: function(id){
+    Resolutions.remove(id); /*use id instead of this._id*/
+  }
+});
